@@ -1,0 +1,1505 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AIFI — Une aide simple, directement depuis votre téléphone</title>
+    <meta
+      name="description"
+      content="AIFI est l'application mobile qui vous permet de consulter votre montant d'aide disponible, connaître les conditions de remboursement et envoyer votre demande, directement depuis votre téléphone."
+    />
+    <meta
+      property="og:title"
+      content="AIFI — Une aide simple, directement depuis votre téléphone"
+    />
+    <meta
+      property="og:description"
+      content="Consultez votre montant, vérifiez les conditions, choisissez votre opérateur Mobile Money, confirmez. Simple et transparent."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy-900: #0f2247;
+        --navy-950: #0a1730;
+        --blue-700: #1c5fc2;
+        --blue-600: #2f7de6;
+        --teal-600: #0e8fa3;
+        --blue-100: #e8f1fd;
+        --gold-400: #d9a94c;
+        --bg-alt: #eef2f9;
+        --paper: #fbfcfe;
+        --ink: #101a2c;
+        --ink-soft: #5c6675;
+        --line: #e1e6f0;
+        --good: #1f9d6c;
+        --radius-s: 10px;
+        --radius-m: 18px;
+        --radius-l: 28px;
+        --shadow-1: 0 1px 2px rgba(15, 30, 60, 0.07);
+        --shadow-2: 0 12px 32px -12px rgba(47, 125, 230, 0.32);
+        --font-head: "Sora", sans-serif;
+        --font-body: "Inter", sans-serif;
+        --wrap: 1120px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        * {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        color: var(--ink);
+        background: var(--paper);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-head);
+        color: var(--navy-900);
+        line-height: 1.15;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+      p {
+        margin: 0;
+      }
+      a {
+        color: inherit;
+      }
+      img,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
+      .wrap {
+        max-width: var(--wrap);
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      section {
+        padding: 96px 0;
+      }
+      @media (max-width: 720px) {
+        section {
+          padding: 64px 0;
+        }
+      }
+
+      /* focus visibility */
+      a:focus-visible,
+      button:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--blue-600);
+        outline-offset: 3px;
+        border-radius: 6px;
+      }
+
+      /* ---------- Reveal on scroll ---------- */
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ---------- Header ---------- */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: rgba(253, 253, 255, 0.85);
+        backdrop-filter: saturate(180%) blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 0;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-head);
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--navy-900);
+        text-decoration: none;
+      }
+      .brand-mark {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+        flex-shrink: 0;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: var(--ink-soft);
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color 0.15s ease;
+      }
+      .nav-links a:hover {
+        color: var(--blue-700);
+      }
+      @media (max-width: 720px) {
+        .nav-links {
+          display: none;
+        }
+      }
+
+      /* ---------- Buttons ---------- */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 15px 28px;
+        border-radius: 100px;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease,
+          background 0.15s ease;
+        white-space: nowrap;
+      }
+      .btn-primary {
+        background: var(--blue-600);
+        color: white;
+        box-shadow: var(--shadow-2);
+      }
+      .btn-primary:hover {
+        background: var(--blue-700);
+        transform: translateY(-2px);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--blue-700);
+        border: 1px solid var(--line);
+      }
+      .btn-ghost:hover {
+        border-color: var(--teal-600);
+        background: var(--blue-100);
+      }
+      .btn-sm {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+      }
+
+      /* ---------- Hero ---------- */
+      .hero {
+        padding: 72px 0 100px;
+      }
+      .hero .wrap {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 64px;
+        align-items: center;
+      }
+      @media (max-width: 900px) {
+        .hero .wrap {
+          grid-template-columns: 1fr;
+          gap: 52px;
+          text-align: left;
+        }
+        .hero {
+          padding: 44px 0 64px;
+        }
+      }
+      .hero h1 {
+        font-size: clamp(2.5rem, 5.4vw, 3.6rem);
+        font-weight: 700;
+      }
+      .hero .lede {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        color: var(--blue-700);
+        font-weight: 500;
+      }
+      .hero p.body {
+        margin-top: 22px;
+        font-size: 1.05rem;
+        color: var(--ink-soft);
+        max-width: 46ch;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 14px;
+        margin-top: 36px;
+        flex-wrap: wrap;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--blue-100);
+        color: var(--blue-700);
+        padding: 7px 14px;
+        border-radius: 100px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 22px;
+      }
+      .badge .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--good);
+      }
+
+      /* ---------- Phone mockup (reproduit l'écran réel de l'app) ---------- */
+      .phone-frame {
+        position: relative;
+        width: min(300px, 78vw);
+        margin: 0 auto;
+        background: var(--navy-950);
+        border-radius: 40px;
+        padding: 12px;
+        box-shadow: 0 30px 60px -20px rgba(8, 18, 38, 0.45);
+      }
+      .phone-screen {
+        background: var(--paper);
+        border-radius: 30px;
+        overflow: hidden;
+        min-height: 540px;
+        display: flex;
+        flex-direction: column;
+      }
+      .phone-header {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(
+          165deg,
+          var(--navy-950),
+          var(--navy-900) 70%
+        );
+        padding: 16px 20px 40px;
+        color: white;
+      }
+      .phone-header::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          115deg,
+          rgba(255, 255, 255, 0.05) 0 2px,
+          transparent 2px 14px
+        );
+      }
+      .phone-header > * {
+        position: relative;
+      }
+      .phone-status {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.68rem;
+        font-weight: 600;
+        opacity: 0.85;
+      }
+      .phone-nav-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 16px;
+      }
+      .phone-icon-btn {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .phone-title {
+        font-family: var(--font-head);
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-top: 18px;
+        color: white;
+      }
+      .phone-badge {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--blue-600);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        border: 4px solid var(--paper);
+        position: absolute;
+        left: 20px;
+        bottom: -28px;
+        box-shadow: var(--shadow-1);
+      }
+      .phone-body {
+        padding: 38px 18px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        flex: 1;
+      }
+      .phone-card {
+        background: white;
+        border-radius: var(--radius-m);
+        padding: 16px 18px;
+        box-shadow: var(--shadow-1);
+        border: 1px solid var(--line);
+      }
+      .phone-card .label {
+        font-size: 0.68rem;
+        color: var(--ink-soft);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+      .phone-card .amount {
+        font-family: var(--font-head);
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--blue-600);
+        margin-top: 4px;
+      }
+      .phone-input {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-m);
+        padding: 14px 16px;
+        font-size: 0.95rem;
+        color: var(--ink);
+        background: white;
+      }
+      .phone-input .label {
+        display: block;
+        margin-bottom: 6px;
+      }
+      .phone-conditions {
+        background: var(--navy-950);
+        border-radius: var(--radius-m);
+        padding: 16px 18px;
+        color: white;
+      }
+      .phone-conditions .label {
+        color: #aeb9d6;
+      }
+      .phone-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-top: 1px dashed rgba(255, 255, 255, 0.14);
+        font-size: 0.78rem;
+      }
+      .phone-row:nth-of-type(1) {
+        border-top: none;
+        margin-top: 8px;
+      }
+      .phone-row span:first-child {
+        color: #aeb9d6;
+      }
+      .phone-row span:last-child {
+        font-weight: 600;
+      }
+      .phone-row .accent {
+        color: #7db3ff;
+      }
+      .phone-op-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--ink-soft);
+      }
+      .phone-chips {
+        display: flex;
+        gap: 8px;
+      }
+      .phone-chips .chip {
+        font-size: 0.78rem;
+        padding: 8px 14px;
+      }
+      .phone-chips .chip.active {
+        background: var(--navy-950);
+        border-color: var(--navy-950);
+      }
+
+      /* ---------- Section headers ---------- */
+      .section-head {
+        max-width: 560px;
+        margin-bottom: 52px;
+      }
+      .section-head h2 {
+        font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+      }
+      .section-head p {
+        margin-top: 14px;
+        color: var(--ink-soft);
+        font-size: 1.05rem;
+      }
+      .section-alt {
+        background: var(--bg-alt);
+      }
+
+      /* ---------- How it works : connected steps ---------- */
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        position: relative;
+      }
+      @media (max-width: 900px) {
+        .steps {
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+      }
+      .step {
+        position: relative;
+        padding-right: 28px;
+      }
+      .step:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        top: 26px;
+        right: 0;
+        width: 28px;
+        height: 1px;
+        background: var(--line);
+      }
+      @media (max-width: 900px) {
+        .step:not(:last-child)::after {
+          display: none;
+        }
+      }
+      .step-num {
+        font-family: var(--font-head);
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--teal-600);
+        margin-bottom: 16px;
+      }
+      .step h3 {
+        font-size: 1.08rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .step p {
+        color: var(--ink-soft);
+        font-size: 0.96rem;
+      }
+
+      /* ---------- Conditions: receipt style ---------- */
+      .receipt-wrap {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 56px;
+        align-items: center;
+      }
+      @media (max-width: 860px) {
+        .receipt-wrap {
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+      }
+      .receipt {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-l);
+        padding: 32px;
+        box-shadow: var(--shadow-1);
+      }
+      .receipt-title {
+        font-size: 0.8rem;
+        text-transform: none;
+        color: var(--ink-soft);
+        font-weight: 600;
+      }
+      .receipt-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 16px 0;
+        border-bottom: 1px dashed var(--line);
+        gap: 16px;
+      }
+      .receipt-line:last-child {
+        border-bottom: none;
+      }
+      .receipt-line .k {
+        color: var(--ink-soft);
+        font-size: 0.95rem;
+      }
+      .receipt-line .v {
+        font-weight: 700;
+        font-family: var(--font-head);
+        color: var(--navy-900);
+        text-align: right;
+      }
+      .receipt-note {
+        margin-top: 22px;
+        font-size: 0.85rem;
+        color: var(--ink-soft);
+      }
+
+      /* ---------- Amounts table ---------- */
+      .table-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-l);
+        overflow: hidden;
+        box-shadow: var(--shadow-1);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      thead th {
+        text-align: left;
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: var(--ink-soft);
+        padding: 16px 24px;
+        border-bottom: 1px solid var(--line);
+      }
+      thead th:last-child,
+      tbody td:last-child {
+        text-align: right;
+      }
+      tbody td {
+        padding: 14px 24px;
+        border-bottom: 1px solid var(--line);
+        font-size: 0.98rem;
+      }
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+      tbody td:first-child {
+        font-weight: 600;
+        font-family: var(--font-head);
+        color: var(--navy-900);
+      }
+      tbody td:last-child {
+        color: var(--ink-soft);
+      }
+      .table-note {
+        margin-top: 20px;
+        font-size: 0.88rem;
+        color: var(--ink-soft);
+      }
+
+      /* ---------- Operator section ---------- */
+      .operator-wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 56px;
+        align-items: center;
+      }
+      @media (max-width: 860px) {
+        .operator-wrap {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+      }
+      .op-points {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      .op-point {
+        display: flex;
+        gap: 16px;
+      }
+      .op-point .icon {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: var(--blue-100);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--blue-700);
+      }
+      .op-point h4 {
+        font-family: var(--font-head);
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .op-point p {
+        color: var(--ink-soft);
+        font-size: 0.95rem;
+      }
+      .op-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-l);
+        padding: 28px;
+        box-shadow: var(--shadow-1);
+      }
+      .op-field {
+        margin-bottom: 16px;
+      }
+      .op-field label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--ink-soft);
+      }
+      .op-field .fake-input {
+        margin-top: 6px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-s);
+        padding: 12px 14px;
+        font-size: 0.95rem;
+        color: var(--ink);
+        background: var(--bg-alt);
+      }
+      .op-chips {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 6px;
+      }
+      .chip {
+        border: 1px solid var(--line);
+        border-radius: 100px;
+        padding: 7px 14px;
+        font-size: 0.85rem;
+        color: var(--ink-soft);
+        background: white;
+      }
+      .chip.active {
+        background: var(--blue-600);
+        color: white;
+        border-color: var(--blue-600);
+        font-weight: 600;
+      }
+
+      /* ---------- Recap checklist ---------- */
+      .recap-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px 32px;
+        max-width: 640px;
+      }
+      @media (max-width: 600px) {
+        .recap-list {
+          grid-template-columns: 1fr;
+        }
+      }
+      .recap-list li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+      .recap-list .check {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--blue-600);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 0.75rem;
+      }
+
+      /* ---------- Download CTA ---------- */
+      .download-cta {
+        background: linear-gradient(155deg, var(--blue-700), var(--navy-900));
+        border-radius: var(--radius-l);
+        padding: 64px 40px;
+        text-align: center;
+        color: white;
+        max-width: var(--wrap);
+        margin: 0 auto;
+      }
+      .download-cta h2 {
+        color: white;
+        font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+      }
+      .download-cta p {
+        color: #c9dcfb;
+        margin-top: 14px;
+        font-size: 1.05rem;
+        max-width: 52ch;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .download-cta .hero-actions {
+        justify-content: center;
+        margin-top: 32px;
+      }
+      .download-cta .btn-primary {
+        background: white;
+        color: var(--blue-700);
+        box-shadow: none;
+      }
+      .download-cta .btn-primary:hover {
+        background: #eaf1fd;
+        transform: translateY(-2px);
+      }
+      .platform-note {
+        margin-top: 22px;
+        font-size: 0.85rem;
+        color: #a9c2ea;
+      }
+
+      /* ---------- FAQ ---------- */
+      .faq {
+        max-width: 760px;
+        margin: 0 auto;
+      }
+      .faq-item {
+        border-bottom: 1px solid var(--line);
+      }
+      .faq-item summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 22px 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        font-family: var(--font-head);
+        font-weight: 600;
+        font-size: 1.02rem;
+        color: var(--navy-900);
+      }
+      .faq-item summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq-item .plus {
+        flex-shrink: 0;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .faq-item .plus::before,
+      .faq-item .plus::after {
+        content: "";
+        position: absolute;
+        background: var(--blue-700);
+      }
+      .faq-item .plus::before {
+        width: 10px;
+        height: 1.5px;
+      }
+      .faq-item .plus::after {
+        width: 1.5px;
+        height: 10px;
+        transition: transform 0.2s ease;
+      }
+      .faq-item[open] .plus::after {
+        transform: scaleY(0);
+      }
+      .faq-item p {
+        padding: 0 4px 22px;
+        color: var(--ink-soft);
+        max-width: 60ch;
+      }
+
+      /* ---------- Footer ---------- */
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 52px 0 36px;
+      }
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .footer-links {
+        display: flex;
+        gap: 28px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        flex-wrap: wrap;
+      }
+      .footer-links a {
+        text-decoration: none;
+        color: var(--ink-soft);
+        font-size: 0.92rem;
+      }
+      .footer-links a:hover {
+        color: var(--blue-700);
+      }
+      .footer-tagline {
+        color: var(--ink-soft);
+        font-size: 0.92rem;
+        margin-top: 8px;
+        max-width: 32ch;
+      }
+      .footer-bottom {
+        margin-top: 36px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        font-size: 0.82rem;
+        color: var(--ink-soft);
+      }
+
+      /* Mobile sticky download bar */
+      .sticky-cta {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 50;
+        background: var(--paper);
+        border-top: 1px solid var(--line);
+        padding: 12px 20px;
+        display: none;
+        box-shadow: 0 -8px 24px rgba(8, 18, 38, 0.08);
+      }
+      .sticky-cta .btn {
+        width: 100%;
+      }
+      @media (max-width: 720px) {
+        .sticky-cta {
+          display: block;
+        }
+        body {
+          padding-bottom: 76px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="nav wrap">
+        <a href="#top" class="brand">
+          <img src="logo.png" alt="Logo AIFI" class="brand-mark" />
+          AIFI
+        </a>
+        <ul class="nav-links">
+          <li><a href="#comment-ca-marche">Comment ça marche</a></li>
+          <li><a href="#montants">Montants</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <a href="#" class="btn btn-primary btn-sm js-download">Télécharger</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="wrap">
+          <div>
+            <span class="badge"
+              ><span class="dot"></span>Disponible sur Android</span
+            >
+            <h1>Une aide simple, directement depuis votre téléphone.</h1>
+            <p class="body">
+              Consultez votre montant d'aide disponible, connaissez les
+              conditions de remboursement et envoyez votre demande, sans jamais
+              quitter votre téléphone.
+            </p>
+            <div class="hero-actions">
+              <a href="#" class="btn btn-primary js-download"
+                >Télécharger AIFI</a
+              >
+              <a href="#comment-ca-marche" class="btn btn-ghost"
+                >Comment ça marche ?</a
+              >
+            </div>
+          </div>
+
+          <div class="reveal">
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <div class="phone-header">
+                  <div class="phone-status">
+                    <span>9:41</span><span>●●●● 100%</span>
+                  </div>
+                  <div class="phone-nav-row">
+                    <span class="phone-icon-btn" aria-hidden="true">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M15 19l-7-7 7-7"
+                          stroke="white"
+                          stroke-width="2.2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    <span class="phone-icon-btn" aria-hidden="true">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M12 3a5 5 0 00-5 5v3.4c0 .6-.2 1.2-.6 1.7L5 15h14l-1.4-1.9a2.7 2.7 0 01-.6-1.7V8a5 5 0 00-5-5z"
+                          stroke="white"
+                          stroke-width="1.8"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M10 18a2 2 0 004 0"
+                          stroke="white"
+                          stroke-width="1.8"
+                          stroke-linecap="round"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <h4 class="phone-title">Nouvelle demande d'aide</h4>
+                  <span class="phone-badge" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                      <rect
+                        x="3"
+                        y="6"
+                        width="18"
+                        height="12"
+                        rx="2"
+                        stroke="white"
+                        stroke-width="1.7"
+                      />
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="2.4"
+                        stroke="white"
+                        stroke-width="1.7"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div class="phone-body">
+                  <div class="phone-card">
+                    <div class="label">Plafond disponible</div>
+                    <div class="amount">25 000 FCFA</div>
+                  </div>
+                  <div class="phone-input">
+                    <span class="label">Montant demandé (FCFA)</span>
+                    15 000
+                  </div>
+                  <div class="phone-conditions">
+                    <div class="label">Conditions de cette aide</div>
+                    <div class="phone-row">
+                      <span>Tu reçois</span><span>15 000 FCFA</span>
+                    </div>
+                    <div class="phone-row">
+                      <span>Total à rembourser</span
+                      ><span class="accent">17 400 FCFA</span>
+                    </div>
+                    <div class="phone-row">
+                      <span>Délai de remboursement</span><span>30 jours</span>
+                    </div>
+                    <div class="phone-row">
+                      <span>Date limite</span><span>07 oct. 2026</span>
+                    </div>
+                  </div>
+                  <div class="phone-op-label">
+                    Où veux-tu recevoir l'argent ?
+                  </div>
+                  <div class="phone-chips">
+                    <span class="chip active">Airtel Money</span>
+                    <span class="chip">Moov Money</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMMENT CA MARCHE -->
+      <section id="comment-ca-marche">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>Comment ça marche ?</h2>
+            <p>
+              Quatre étapes, du choix du montant à la confirmation de votre
+              demande.
+            </p>
+          </div>
+          <div class="steps">
+            <div class="step reveal">
+              <div class="step-num">01</div>
+              <h3>Choisissez votre montant</h3>
+              <p>
+                Consultez le montant d'aide auquel vous pouvez prétendre selon
+                votre niveau et les conditions disponibles.
+              </p>
+            </div>
+            <div class="step reveal">
+              <div class="step-num">02</div>
+              <h3>Consultez les conditions</h3>
+              <p>
+                Avant de confirmer, vous voyez clairement le montant reçu, le
+                montant total à rembourser, le délai et la date limite prévue.
+              </p>
+            </div>
+            <div class="step reveal">
+              <div class="step-num">03</div>
+              <h3>Choisissez votre opérateur</h3>
+              <p>
+                Sélectionnez vous-même votre opérateur Mobile Money et
+                renseignez votre numéro et les informations de votre compte.
+              </p>
+            </div>
+            <div class="step reveal">
+              <div class="step-num">04</div>
+              <h3>Envoyez votre demande</h3>
+              <p>
+                Vérifiez vos informations puis confirmez. Votre demande est
+                ensuite traitée par l'administration de l'application.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONDITIONS CLAIRES -->
+      <section class="section-alt">
+        <div class="wrap receipt-wrap">
+          <div class="reveal">
+            <div class="section-head" style="margin-bottom: 24px">
+              <h2>Des conditions claires, avant de confirmer</h2>
+            </div>
+            <p class="body" style="color: var(--ink-soft); max-width: 46ch">
+              AIFI vous montre les principales conditions de votre demande avant
+              sa confirmation — rien n'est caché, rien n'est automatique.
+            </p>
+          </div>
+          <div class="receipt reveal">
+            <div class="receipt-title">Résumé de la demande</div>
+            <div class="receipt-line">
+              <span class="k">Montant reçu</span
+              ><span class="v">25 000 FCFA</span>
+            </div>
+            <div class="receipt-line">
+              <span class="k">Montant total à rembourser</span
+              ><span class="v">29 000 FCFA</span>
+            </div>
+            <div class="receipt-line">
+              <span class="k">Durée du remboursement</span
+              ><span class="v">30 jours</span>
+            </div>
+            <div class="receipt-line">
+              <span class="k">Date limite</span
+              ><span class="v">07 oct. 2026</span>
+            </div>
+            <div class="receipt-line">
+              <span class="k">Opérateur choisi</span
+              ><span class="v">Mobile Money</span>
+            </div>
+            <p class="receipt-note">
+              Exemple à titre indicatif — les valeurs réelles dépendent de votre
+              demande.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- MONTANTS ET DELAIS -->
+      <section id="montants">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>Exemples de montants et délais</h2>
+            <p>
+              Un aperçu des conditions actuellement disponibles dans
+              l'application.
+            </p>
+          </div>
+          <div class="table-card reveal">
+            <table>
+              <thead>
+                <tr>
+                  <th>Montant</th>
+                  <th>Délai</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>500 FCFA</td>
+                  <td>3 jours</td>
+                </tr>
+                <tr>
+                  <td>1 000 FCFA</td>
+                  <td>3 jours</td>
+                </tr>
+                <tr>
+                  <td>2 000 FCFA</td>
+                  <td>3 jours</td>
+                </tr>
+                <tr>
+                  <td>5 000 FCFA</td>
+                  <td>15 jours</td>
+                </tr>
+                <tr>
+                  <td>10 000 FCFA</td>
+                  <td>15 jours</td>
+                </tr>
+                <tr>
+                  <td>15 000 FCFA</td>
+                  <td>15 jours</td>
+                </tr>
+                <tr>
+                  <td>20 000 FCFA</td>
+                  <td>30 jours</td>
+                </tr>
+                <tr>
+                  <td>25 000 FCFA</td>
+                  <td>30 jours</td>
+                </tr>
+                <tr>
+                  <td>30 000 FCFA</td>
+                  <td>30 jours</td>
+                </tr>
+                <tr>
+                  <td>35 000 FCFA</td>
+                  <td>30 jours</td>
+                </tr>
+                <tr>
+                  <td>40 000 FCFA</td>
+                  <td>30 jours</td>
+                </tr>
+                <tr>
+                  <td>45 000 FCFA</td>
+                  <td>30 jours</td>
+                </tr>
+                <tr>
+                  <td>50 000 FCFA</td>
+                  <td>30 jours</td>
+                </tr>
+                <tr>
+                  <td>55 000 FCFA</td>
+                  <td>30 jours</td>
+                </tr>
+                <tr>
+                  <td>60 000 FCFA</td>
+                  <td>30 jours</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="table-note reveal">
+            Les montants et délais disponibles peuvent dépendre des conditions
+            et de l'éligibilité de l'utilisateur.
+          </p>
+        </div>
+      </section>
+
+      <!-- OPERATEUR -->
+      <section class="section-alt">
+        <div class="wrap operator-wrap">
+          <div class="reveal">
+            <div class="section-head" style="margin-bottom: 28px">
+              <h2>Vous choisissez votre opérateur</h2>
+            </div>
+            <div class="op-points">
+              <div class="op-point">
+                <span class="icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M7 4h10a1 1 0 011 1v14a1 1 0 01-1 1H7a1 1 0 01-1-1V5a1 1 0 011-1z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                    />
+                    <path
+                      d="M11 18h2"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </span>
+                <div>
+                  <h4>Votre numéro, votre choix</h4>
+                  <p>
+                    Vous sélectionnez vous-même l'opérateur Mobile Money sur
+                    lequel vous souhaitez recevoir votre aide.
+                  </p>
+                </div>
+              </div>
+              <div class="op-point">
+                <span class="icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M4 7l8 5 8-5"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <rect
+                      x="4"
+                      y="5"
+                      width="16"
+                      height="14"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                    />
+                  </svg>
+                </span>
+                <div>
+                  <h4>Vos informations, en toute transparence</h4>
+                  <p>
+                    Renseignez votre numéro de compte Mobile Money ainsi que le
+                    nom associé à ce compte.
+                  </p>
+                </div>
+              </div>
+              <div class="op-point">
+                <span class="icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M12 3l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1L6.6 19.3l1.3-6-4.6-4.1 6.1-.6L12 3z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <div>
+                  <h4>Personne ne choisit à votre place</h4>
+                  <p>
+                    L'administrateur ne sélectionne jamais un opérateur au nom
+                    d'un utilisateur — la décision vous revient entièrement.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="op-card reveal">
+            <div class="op-field">
+              <label>Opérateur Mobile Money</label>
+              <div class="op-chips">
+                <span class="chip active">Airtel Money</span>
+                <span class="chip">Moov Money</span>
+              </div>
+            </div>
+            <div class="op-field">
+              <label>Numéro de compte</label>
+              <div class="fake-input">07 •• •• ••</div>
+            </div>
+            <div class="op-field" style="margin-bottom: 0">
+              <label>Nom associé au compte</label>
+              <div class="fake-input">Nom et prénom</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RECAP -->
+      <section>
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>Une demande simple</h2>
+          </div>
+          <ul class="recap-list reveal">
+            <li><span class="check">✓</span>Choisissez votre montant</li>
+            <li><span class="check">✓</span>Consultez les conditions</li>
+            <li><span class="check">✓</span>Choisissez votre opérateur</li>
+            <li>
+              <span class="check">✓</span>Renseignez vos informations de
+              réception
+            </li>
+            <li><span class="check">✓</span>Vérifiez votre demande</li>
+            <li><span class="check">✓</span>Confirmez</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- DOWNLOAD CTA -->
+      <section>
+        <div class="wrap">
+          <div class="download-cta reveal">
+            <h2>Prêt à utiliser AIFI ?</h2>
+            <p>
+              Téléchargez l'application et effectuez vos demandes directement
+              depuis votre téléphone.
+            </p>
+            <div class="hero-actions">
+              <a href="#" class="btn btn-primary js-download"
+                >Télécharger l'application</a
+              >
+            </div>
+            <p class="platform-note">Application Android</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq">
+        <div class="wrap">
+          <div
+            class="section-head reveal"
+            style="margin-left: auto; margin-right: auto; text-align: left"
+          >
+            <h2>Questions fréquentes</h2>
+          </div>
+          <div class="faq reveal">
+            <details class="faq-item">
+              <summary>Qu'est-ce que AIFI ?<span class="plus"></span></summary>
+              <p>
+                AIFI est une application mobile permettant aux utilisateurs de
+                consulter et d'effectuer des demandes d'aide selon les
+                conditions disponibles dans l'application.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>
+                Comment demander une aide ?<span class="plus"></span>
+              </summary>
+              <p>
+                Choisissez votre montant, consultez les conditions, sélectionnez
+                votre opérateur, renseignez vos informations puis confirmez
+                votre demande.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>
+                Qui choisit l'opérateur ?<span class="plus"></span>
+              </summary>
+              <p>
+                C'est l'utilisateur qui choisit son opérateur au moment de sa
+                demande.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>
+                Comment vais-je recevoir l'argent ?<span class="plus"></span>
+              </summary>
+              <p>
+                Le transfert est effectué vers les informations de compte Mobile
+                Money renseignées lors de la demande, après traitement et
+                validation.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <div class="footer-top">
+          <div>
+            <a href="#top" class="brand"
+              ><img src="logo.png" alt="Logo AIFI" class="brand-mark" />AIFI</a
+            >
+            <p class="footer-tagline">
+              Une solution simple depuis votre téléphone.
+            </p>
+          </div>
+          <ul class="footer-links">
+            <li><a href="#">Conditions d'utilisation</a></li>
+            <li><a href="#">Politique de confidentialité</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-bottom">
+          © <span id="year"></span> AIFI. Tous droits réservés.
+        </div>
+      </div>
+    </footer>
+
+    <div class="sticky-cta">
+      <a href="#" class="btn btn-primary js-download">Télécharger AIFI</a>
+    </div>
+
+    <script>
+      // ==================== CONFIGURATION ====================
+      // Remplacez cette valeur par le lien vers votre fichier APK.
+      // - Fichier hébergé avec le site (ex: "assets/aifi.apk") → téléchargement 100% statique, sans backend.
+      // - Lien externe (GitHub Releases, Firebase Storage, S3...) → fonctionne aussi, mais le téléchargement
+      //   immédiat n'est garanti que si le fichier est sur le MÊME domaine que le site (limite navigateur).
+      const DOWNLOAD_URL = "aifi.apk";
+      // =========================================================
+
+      document.querySelectorAll(".js-download").forEach(function (el) {
+        el.setAttribute("href", DOWNLOAD_URL);
+        el.setAttribute("download", "AIFI.apk");
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Scroll reveal
+      var revealEls = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("in");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 },
+        );
+        revealEls.forEach(function (el) {
+          io.observe(el);
+        });
+      } else {
+        revealEls.forEach(function (el) {
+          el.classList.add("in");
+        });
+      }
+    </script>
+  </body>
+</html>
