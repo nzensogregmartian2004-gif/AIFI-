@@ -3,18 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AIFI — Une aide simple, directement depuis votre téléphone</title>
+    <title>AIFI — Un coup de main, depuis votre téléphone</title>
     <meta
       name="description"
-      content="AIFI est l'application mobile qui vous permet de consulter votre montant d'aide disponible, connaître les conditions de remboursement et envoyer votre demande, directement depuis votre téléphone."
+      content="AIFI vous aide à demander une petite aide financière (1 000, 2 000, 5 000 FCFA…) directement depuis votre téléphone Android, sans vous déplacer. Conditions claires avant chaque confirmation."
     />
     <meta
       property="og:title"
-      content="AIFI — Une aide simple, directement depuis votre téléphone"
+      content="AIFI — Un coup de main, depuis votre téléphone"
     />
     <meta
       property="og:description"
-      content="Consultez votre montant, vérifiez les conditions, choisissez votre opérateur Mobile Money, confirmez. Simple et transparent."
+      content="Pour les petits besoins du quotidien : demandez, suivez et remboursez votre aide depuis votre téléphone, sans courir partout."
     />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="favicon.png" />
@@ -914,6 +914,139 @@
           padding-bottom: 76px;
         }
       }
+
+      /* ===== Ajouts : aide, fonctionnalités, logo, conditions ===== */
+      .help-cards {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      }
+      .help-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-m);
+        padding: 24px;
+      }
+      .help-card h3 {
+        font-family: var(--font-head);
+        font-size: 1.05rem;
+        margin: 0 0 8px;
+        color: var(--ink);
+      }
+      .help-card p {
+        margin: 0;
+        color: var(--ink-soft);
+        line-height: 1.6;
+      }
+      .quote {
+        font-family: var(--font-head);
+        font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+        color: var(--ink);
+        max-width: 36ch;
+        margin: 0 0 14px;
+        line-height: 1.3;
+      }
+      .feature-grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+      .feature {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-m);
+        padding: 22px;
+      }
+      .feature h3 {
+        font-family: var(--font-head);
+        font-size: 1rem;
+        margin: 0 0 6px;
+        color: var(--ink);
+      }
+      .feature p {
+        margin: 0;
+        color: var(--ink-soft);
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+      .logo-showcase {
+        display: grid;
+        gap: 40px;
+        align-items: center;
+        grid-template-columns: minmax(200px, 320px) 1fr;
+      }
+      .logo-showcase img {
+        width: 100%;
+        height: auto;
+        border-radius: var(--radius-l);
+        background: #fff;
+        border: 1px solid var(--line);
+        padding: 16px;
+      }
+      .logo-points {
+        display: grid;
+        gap: 16px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .logo-points li {
+        color: var(--ink-soft);
+        line-height: 1.6;
+      }
+      .logo-points strong {
+        color: var(--ink);
+      }
+      .note-box {
+        margin-top: 22px;
+        background: var(--bg-alt);
+        border-radius: var(--radius-m);
+        padding: 18px 22px;
+        color: var(--ink-soft);
+        line-height: 1.6;
+      }
+      .install {
+        counter-reset: step;
+        margin: 24px auto 0;
+        max-width: 60ch;
+        padding: 0;
+        list-style: none;
+        text-align: left;
+      }
+      .install li {
+        counter-increment: step;
+        position: relative;
+        padding-left: 40px;
+        margin-bottom: 12px;
+        color: var(--ink-soft);
+        line-height: 1.6;
+      }
+      .install li::before {
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .section-lead {
+        max-width: 60ch;
+        color: var(--ink-soft);
+        margin: 0 auto;
+      }
+      @media (max-width: 760px) {
+        .logo-showcase {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
   </head>
   <body>
@@ -924,8 +1057,11 @@
           AIFI
         </a>
         <ul class="nav-links">
+          <li><a href="#fonctionnalites">Fonctionnalités</a></li>
           <li><a href="#comment-ca-marche">Comment ça marche</a></li>
+          <li><a href="#logo">Le logo</a></li>
           <li><a href="#montants">Montants</a></li>
+          <li><a href="#aifi-plus">AIFI+</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
         <a href="#" class="btn btn-primary btn-sm js-download">Télécharger</a>
@@ -940,11 +1076,12 @@
             <span class="badge"
               ><span class="dot"></span>Disponible sur Android</span
             >
-            <h1>Une aide simple, directement depuis votre téléphone.</h1>
+            <h1>Un petit coup de main, sans courir partout.</h1>
             <p class="body">
-              Consultez votre montant d'aide disponible, connaissez les
-              conditions de remboursement et envoyez votre demande, sans jamais
-              quitter votre téléphone.
+              Vous avez besoin de 1 000, 2 000 ou 5 000 FCFA pour un imprévu ?
+              Avec AIFI, faites votre demande depuis votre téléphone. Vous voyez
+              le montant, le total à rembourser et la date limite avant de
+              confirmer. Pas de déplacement, pas de porte-à-porte.
             </p>
             <div class="hero-actions">
               <a href="#" class="btn btn-primary js-download"
@@ -963,94 +1100,35 @@
                   <div class="phone-status">
                     <span>9:41</span><span>●●●● 100%</span>
                   </div>
-                  <div class="phone-nav-row">
-                    <span class="phone-icon-btn" aria-hidden="true">
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <path
-                          d="M15 19l-7-7 7-7"
-                          stroke="white"
-                          stroke-width="2.2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </span>
-                    <span class="phone-icon-btn" aria-hidden="true">
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <path
-                          d="M12 3a5 5 0 00-5 5v3.4c0 .6-.2 1.2-.6 1.7L5 15h14l-1.4-1.9a2.7 2.7 0 01-.6-1.7V8a5 5 0 00-5-5z"
-                          stroke="white"
-                          stroke-width="1.8"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M10 18a2 2 0 004 0"
-                          stroke="white"
-                          stroke-width="1.8"
-                          stroke-linecap="round"
-                        />
-                      </svg>
-                    </span>
-                  </div>
                   <h4 class="phone-title">Nouvelle demande d'aide</h4>
-                  <span class="phone-badge" aria-hidden="true">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                      <rect
-                        x="3"
-                        y="6"
-                        width="18"
-                        height="12"
-                        rx="2"
-                        stroke="white"
-                        stroke-width="1.7"
-                      />
-                      <circle
-                        cx="12"
-                        cy="12"
-                        r="2.4"
-                        stroke="white"
-                        stroke-width="1.7"
-                      />
-                    </svg>
-                  </span>
                 </div>
                 <div class="phone-body">
                   <div class="phone-card">
-                    <div class="label">Plafond disponible</div>
-                    <div class="amount">25 000 FCFA</div>
+                    <div class="label">Votre plafond disponible</div>
+                    <div class="amount">5 000 FCFA</div>
                   </div>
                   <div class="phone-input">
                     <span class="label">Montant demandé (FCFA)</span>
-                    15 000
+                    5 000
                   </div>
                   <div class="phone-conditions">
                     <div class="label">Conditions de cette aide</div>
                     <div class="phone-row">
-                      <span>Tu reçois</span><span>15 000 FCFA</span>
+                      <span>Vous recevez</span><span>5 000 FCFA</span>
                     </div>
                     <div class="phone-row">
                       <span>Total à rembourser</span
-                      ><span class="accent">17 400 FCFA</span>
+                      ><span class="accent">6 650 FCFA</span>
                     </div>
                     <div class="phone-row">
-                      <span>Délai de remboursement</span><span>30 jours</span>
+                      <span>Durée</span><span>15 jours</span>
                     </div>
                     <div class="phone-row">
-                      <span>Date limite</span><span>07 oct. 2026</span>
+                      <span>Date limite</span><span>14 nov. 2026</span>
                     </div>
                   </div>
                   <div class="phone-op-label">
-                    Où veux-tu recevoir l'argent ?
+                    Où voulez-vous recevoir l'argent ?
                   </div>
                   <div class="phone-chips">
                     <span class="chip active">Airtel Money</span>
@@ -1059,95 +1137,270 @@
                 </div>
               </div>
             </div>
+            <p class="table-note" style="text-align: center">
+              Exemple indicatif.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- POURQUOI AIFI -->
+      <section class="section-alt">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>
+              Parce que chercher quelques milliers de francs ne devrait pas vous
+              faire perdre votre journée.
+            </h2>
+          </div>
+          <div class="help-cards reveal">
+            <div class="help-card">
+              <h3>Pour les petits besoins</h3>
+              <p>
+                Un transport, un médicament, une dépense urgente. AIFI est fait
+                pour ces besoins du quotidien, sans démarches interminables.
+              </p>
+            </div>
+            <div class="help-card">
+              <h3>Sans vous déplacer</h3>
+              <p>
+                Demandez, suivez et remboursez votre aide depuis votre
+                téléphone, à tout moment.
+              </p>
+            </div>
+            <div class="help-card">
+              <h3>Rien de caché</h3>
+              <p>
+                Le montant reçu, le total à rembourser et la date limite
+                s'affichent avant chaque confirmation.
+              </p>
+            </div>
+            <div class="help-card">
+              <h3>Vous restez maître</h3>
+              <p>
+                Vous choisissez votre opérateur Mobile Money et le compte qui
+                reçoit l'argent. Personne ne choisit à votre place.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FONCTIONNALITES -->
+      <section id="fonctionnalites">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>Ce que vous trouvez dans l'application</h2>
+            <p class="section-lead">
+              Tout ce qu'il faut pour demander, suivre et rembourser votre aide,
+              au même endroit.
+            </p>
+          </div>
+          <div class="feature-grid">
+            <div class="feature reveal">
+              <h3>Votre plafond</h3>
+              <p>
+                L'accueil affiche le montant auquel vous pouvez prétendre et
+                votre niveau de confiance.
+              </p>
+            </div>
+            <div class="feature reveal">
+              <h3>Une demande claire</h3>
+              <p>
+                Choisissez le montant, lisez le total à rembourser et la date
+                limite, puis confirmez.
+              </p>
+            </div>
+            <div class="feature reveal">
+              <h3>Votre date de remboursement</h3>
+              <p>
+                À partir de 50 points de confiance, vous pouvez choisir votre
+                date, de 3 jours minimum à deux fois la durée de votre aide.
+              </p>
+            </div>
+            <div class="feature reveal">
+              <h3>Mes demandes</h3>
+              <p>
+                Suivez l'état de chaque demande, de l'envoi jusqu'au
+                remboursement.
+              </p>
+            </div>
+            <div class="feature reveal">
+              <h3>Rembourser en ligne</h3>
+              <p>
+                Payez votre échéance depuis l'application, par Mobile Money
+                (Airtel Money ou Moov Money).
+              </p>
+            </div>
+            <div class="feature reveal">
+              <h3>Des rappels utiles</h3>
+              <p>
+                Des notifications vous préviennent avant l'échéance, puis
+                pendant le délai de grâce.
+              </p>
+            </div>
+            <div class="feature reveal">
+              <h3>Parrainage et portefeuille</h3>
+              <p>
+                Partagez votre code de parrainage. Vos gains apparaissent dans
+                votre portefeuille, et vous pouvez les retirer dès que le
+                montant minimum est atteint.
+              </p>
+            </div>
+            <div class="feature reveal">
+              <h3>Écrire à l'équipe</h3>
+              <p>
+                Une messagerie directe avec l'équipe AIFI, pour poser vos
+                questions et envoyer une photo si besoin.
+              </p>
+            </div>
+            <div class="feature reveal">
+              <h3>Vérification d'identité</h3>
+              <p>
+                Envoyez vos documents depuis l'application (carte d'identité,
+                passeport, récépissé, permis…) pour faire valider votre compte.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- COMMENT CA MARCHE -->
-      <section id="comment-ca-marche">
+      <section id="comment-ca-marche" class="section-alt">
         <div class="wrap">
           <div class="section-head reveal">
             <h2>Comment ça marche ?</h2>
             <p>
-              Quatre étapes, du choix du montant à la confirmation de votre
-              demande.
+              Quatre étapes, du compte créé à la confirmation de votre demande.
             </p>
           </div>
           <div class="steps">
             <div class="step reveal">
               <div class="step-num">01</div>
-              <h3>Choisissez votre montant</h3>
+              <h3>Créez votre compte</h3>
               <p>
-                Consultez le montant d'aide auquel vous pouvez prétendre selon
-                votre niveau et les conditions disponibles.
+                Inscrivez-vous avec votre numéro, puis envoyez vos documents.
+                L'équipe AIFI valide votre compte.
               </p>
             </div>
             <div class="step reveal">
               <div class="step-num">02</div>
-              <h3>Consultez les conditions</h3>
+              <h3>Choisissez votre montant</h3>
               <p>
-                Avant de confirmer, vous voyez clairement le montant reçu, le
-                montant total à rembourser, le délai et la date limite prévue.
+                Consultez le montant auquel vous pouvez prétendre et lisez les
+                conditions avant de continuer.
               </p>
             </div>
             <div class="step reveal">
               <div class="step-num">03</div>
               <h3>Choisissez votre opérateur</h3>
               <p>
-                Sélectionnez vous-même votre opérateur Mobile Money et
-                renseignez votre numéro et les informations de votre compte.
+                Sélectionnez vous-même votre opérateur Mobile Money, puis
+                renseignez le numéro et le nom du compte.
               </p>
             </div>
             <div class="step reveal">
               <div class="step-num">04</div>
-              <h3>Envoyez votre demande</h3>
+              <h3>Confirmez et suivez</h3>
               <p>
-                Vérifiez vos informations puis confirmez. Votre demande est
-                ensuite traitée par l'administration de l'application.
+                Vérifiez votre demande et confirmez. Vous suivez ensuite son
+                traitement dans l'application.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- CONDITIONS CLAIRES -->
+      <!-- LOGO -->
+      <section id="logo">
+        <div class="wrap">
+          <div class="logo-showcase">
+            <div class="reveal">
+              <img
+                src="logo.png"
+                alt="Logo AIFI : un A stylisé, une flèche qui monte, une main et des pièces dorées"
+              />
+            </div>
+            <div class="reveal">
+              <div class="section-head" style="margin-bottom: 20px">
+                <h2>Ce que raconte notre logo</h2>
+              </div>
+              <ul class="logo-points">
+                <li>
+                  <strong>Le A</strong> est la première lettre d'AIFI, la marque
+                  qui vous accompagne.
+                </li>
+                <li>
+                  <strong>La flèche qui monte</strong> symbolise la progression
+                  : chaque remboursement à temps vous fait avancer.
+                </li>
+                <li>
+                  <strong>La main</strong> représente le soutien et l'entraide,
+                  la main qui vous tend un coup de pouce.
+                </li>
+                <li>
+                  <strong>Les pièces dorées</strong> évoquent l'argent et l'aide
+                  financière, portée avec confiance.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- POINTS DE CONFIANCE -->
       <section class="section-alt">
         <div class="wrap receipt-wrap">
           <div class="reveal">
             <div class="section-head" style="margin-bottom: 24px">
-              <h2>Des conditions claires, avant de confirmer</h2>
+              <h2>Vos points de confiance font grandir votre aide</h2>
             </div>
             <p class="body" style="color: var(--ink-soft); max-width: 46ch">
-              AIFI vous montre les principales conditions de votre demande avant
-              sa confirmation — rien n'est caché, rien n'est automatique.
+              Chaque remboursement fait à temps renforce votre confiance. Plus
+              vos points sont élevés, plus votre plafond augmente. Sans AIFI+,
+              les points sont pris en compte jusqu'à 150 pour le calcul du
+              plafond.
             </p>
           </div>
-          <div class="receipt reveal">
-            <div class="receipt-title">Résumé de la demande</div>
-            <div class="receipt-line">
-              <span class="k">Montant reçu</span
-              ><span class="v">25 000 FCFA</span>
-            </div>
-            <div class="receipt-line">
-              <span class="k">Montant total à rembourser</span
-              ><span class="v">29 000 FCFA</span>
-            </div>
-            <div class="receipt-line">
-              <span class="k">Durée du remboursement</span
-              ><span class="v">30 jours</span>
-            </div>
-            <div class="receipt-line">
-              <span class="k">Date limite</span
-              ><span class="v">07 oct. 2026</span>
-            </div>
-            <div class="receipt-line">
-              <span class="k">Opérateur choisi</span
-              ><span class="v">Mobile Money</span>
-            </div>
-            <p class="receipt-note">
-              Exemple à titre indicatif — les valeurs réelles dépendent de votre
-              demande.
-            </p>
+          <div class="table-card reveal">
+            <table>
+              <thead>
+                <tr>
+                  <th>Points de confiance</th>
+                  <th>Plafond indicatif</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>10 points</td>
+                  <td>1 000 FCFA</td>
+                </tr>
+                <tr>
+                  <td>50 points</td>
+                  <td>5 000 FCFA</td>
+                </tr>
+                <tr>
+                  <td>100 points</td>
+                  <td>10 000 FCFA</td>
+                </tr>
+                <tr>
+                  <td>150 points</td>
+                  <td>15 000 FCFA</td>
+                </tr>
+                <tr>
+                  <td>180 points (AIFI+)</td>
+                  <td>25 000 FCFA</td>
+                </tr>
+                <tr>
+                  <td>210 points (AIFI+)</td>
+                  <td>50 000 FCFA</td>
+                </tr>
+                <tr>
+                  <td>240 points (AIFI+)</td>
+                  <td>60 000 FCFA</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
@@ -1156,235 +1409,177 @@
       <section id="montants">
         <div class="wrap">
           <div class="section-head reveal">
-            <h2>Exemples de montants et délais</h2>
+            <h2>Montants, durées et total à rembourser</h2>
             <p>
-              Un aperçu des conditions actuellement disponibles dans
-              l'application.
+              Les frais de service sont de 33 % du montant reçu. Avec AIFI+, ils
+              sont de 25 %.
             </p>
           </div>
           <div class="table-card reveal">
             <table>
               <thead>
                 <tr>
-                  <th>Montant</th>
-                  <th>Délai</th>
+                  <th>Vous recevez</th>
+                  <th>Durée</th>
+                  <th>Total à rembourser</th>
+                  <th>Avec AIFI+</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>500 FCFA</td>
                   <td>3 jours</td>
+                  <td>665 FCFA</td>
+                  <td>625 FCFA</td>
                 </tr>
                 <tr>
                   <td>1 000 FCFA</td>
                   <td>3 jours</td>
+                  <td>1 330 FCFA</td>
+                  <td>1 250 FCFA</td>
                 </tr>
                 <tr>
                   <td>2 000 FCFA</td>
-                  <td>3 jours</td>
+                  <td>7 jours</td>
+                  <td>2 660 FCFA</td>
+                  <td>2 500 FCFA</td>
                 </tr>
                 <tr>
                   <td>5 000 FCFA</td>
                   <td>15 jours</td>
+                  <td>6 650 FCFA</td>
+                  <td>6 250 FCFA</td>
                 </tr>
                 <tr>
                   <td>10 000 FCFA</td>
                   <td>15 jours</td>
+                  <td>13 300 FCFA</td>
+                  <td>12 500 FCFA</td>
                 </tr>
                 <tr>
                   <td>15 000 FCFA</td>
                   <td>15 jours</td>
+                  <td>19 950 FCFA</td>
+                  <td>18 750 FCFA</td>
                 </tr>
                 <tr>
                   <td>20 000 FCFA</td>
                   <td>30 jours</td>
-                </tr>
-                <tr>
+                  <td>26 600 FCFA</td>
                   <td>25 000 FCFA</td>
-                  <td>30 jours</td>
                 </tr>
                 <tr>
                   <td>30 000 FCFA</td>
                   <td>30 jours</td>
-                </tr>
-                <tr>
-                  <td>35 000 FCFA</td>
-                  <td>30 jours</td>
+                  <td>39 900 FCFA</td>
+                  <td>37 500 FCFA</td>
                 </tr>
                 <tr>
                   <td>40 000 FCFA</td>
                   <td>30 jours</td>
-                </tr>
-                <tr>
-                  <td>45 000 FCFA</td>
-                  <td>30 jours</td>
+                  <td>53 200 FCFA</td>
+                  <td>50 000 FCFA</td>
                 </tr>
                 <tr>
                   <td>50 000 FCFA</td>
                   <td>30 jours</td>
-                </tr>
-                <tr>
-                  <td>55 000 FCFA</td>
-                  <td>30 jours</td>
+                  <td>66 500 FCFA</td>
+                  <td>62 500 FCFA</td>
                 </tr>
                 <tr>
                   <td>60 000 FCFA</td>
                   <td>30 jours</td>
+                  <td>79 800 FCFA</td>
+                  <td>75 000 FCFA</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <p class="table-note reveal">
-            Les montants et délais disponibles peuvent dépendre des conditions
-            et de l'éligibilité de l'utilisateur.
+            Montants et durées indicatifs : ils peuvent évoluer. Le total exact
+            et la date limite sont toujours affichés avant votre confirmation.
+            Vous pouvez aussi choisir une date de remboursement dès 50 points de
+            confiance.
           </p>
         </div>
       </section>
 
-      <!-- OPERATEUR -->
+      <!-- RETARD ET CONDITIONS -->
       <section class="section-alt">
-        <div class="wrap operator-wrap">
+        <div class="wrap receipt-wrap">
           <div class="reveal">
-            <div class="section-head" style="margin-bottom: 28px">
-              <h2>Vous choisissez votre opérateur</h2>
+            <div class="section-head" style="margin-bottom: 24px">
+              <h2>Des conditions claires, même en cas de retard</h2>
             </div>
-            <div class="op-points">
-              <div class="op-point">
-                <span class="icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M7 4h10a1 1 0 011 1v14a1 1 0 01-1 1H7a1 1 0 01-1-1V5a1 1 0 011-1z"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                    />
-                    <path
-                      d="M11 18h2"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <div>
-                  <h4>Votre numéro, votre choix</h4>
-                  <p>
-                    Vous sélectionnez vous-même l'opérateur Mobile Money sur
-                    lequel vous souhaitez recevoir votre aide.
-                  </p>
-                </div>
-              </div>
-              <div class="op-point">
-                <span class="icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M4 7l8 5 8-5"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <rect
-                      x="4"
-                      y="5"
-                      width="16"
-                      height="14"
-                      rx="2"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                    />
-                  </svg>
-                </span>
-                <div>
-                  <h4>Vos informations, en toute transparence</h4>
-                  <p>
-                    Renseignez votre numéro de compte Mobile Money ainsi que le
-                    nom associé à ce compte.
-                  </p>
-                </div>
-              </div>
-              <div class="op-point">
-                <span class="icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M12 3l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1L6.6 19.3l1.3-6-4.6-4.1 6.1-.6L12 3z"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
-                <div>
-                  <h4>Personne ne choisit à votre place</h4>
-                  <p>
-                    L'administrateur ne sélectionne jamais un opérateur au nom
-                    d'un utilisateur — la décision vous revient entièrement.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <p class="body" style="color: var(--ink-soft); max-width: 46ch">
+              Rien n'est caché. Voici les règles qui s'appliquent, et elles vous
+              sont rappelées avant chaque confirmation.
+            </p>
           </div>
-
-          <div class="op-card reveal">
-            <div class="op-field">
-              <label>Opérateur Mobile Money</label>
-              <div class="op-chips">
-                <span class="chip active">Airtel Money</span>
-                <span class="chip">Moov Money</span>
-              </div>
+          <div class="receipt reveal">
+            <div class="receipt-title">Exemple : 5 000 FCFA sur 15 jours</div>
+            <div class="receipt-line">
+              <span class="k">Vous recevez</span
+              ><span class="v">5 000 FCFA</span>
             </div>
-            <div class="op-field">
-              <label>Numéro de compte</label>
-              <div class="fake-input">07 •• •• ••</div>
+            <div class="receipt-line">
+              <span class="k">Total à rembourser</span
+              ><span class="v">6 650 FCFA</span>
             </div>
-            <div class="op-field" style="margin-bottom: 0">
-              <label>Nom associé au compte</label>
-              <div class="fake-input">Nom et prénom</div>
+            <div class="receipt-line">
+              <span class="k">Dont frais de service (33 %)</span
+              ><span class="v">1 650 FCFA</span>
             </div>
+            <div class="receipt-line">
+              <span class="k">Délai de grâce</span
+              ><span class="v">1 jour sans pénalité</span>
+            </div>
+            <p class="receipt-note">
+              Passé le délai de grâce, le montant dû augmente chaque jour de
+              retard, et vos points de confiance diminuent. Vous êtes prévenu
+              par notification à chaque étape.
+            </p>
           </div>
         </div>
       </section>
 
-      <!-- RECAP -->
-      <section>
+      <!-- AIFI+ -->
+      <section id="aifi-plus">
         <div class="wrap">
           <div class="section-head reveal">
-            <h2>Une demande simple</h2>
+            <h2>AIFI+ : des conditions plus avantageuses</h2>
+            <p>Un abonnement pour ceux qui utilisent AIFI régulièrement.</p>
           </div>
-          <ul class="recap-list reveal">
-            <li><span class="check">✓</span>Choisissez votre montant</li>
-            <li><span class="check">✓</span>Consultez les conditions</li>
-            <li><span class="check">✓</span>Choisissez votre opérateur</li>
-            <li>
-              <span class="check">✓</span>Renseignez vos informations de
-              réception
-            </li>
-            <li><span class="check">✓</span>Vérifiez votre demande</li>
-            <li><span class="check">✓</span>Confirmez</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- DOWNLOAD CTA -->
-      <section>
-        <div class="wrap">
-          <div class="download-cta reveal">
-            <h2>Prêt à utiliser AIFI ?</h2>
-            <p>
-              Téléchargez l'application et effectuez vos demandes directement
-              depuis votre téléphone.
-            </p>
-            <div class="hero-actions">
-              <a href="#" class="btn btn-primary js-download"
-                >Télécharger l'application</a
-              >
+          <div class="feature-grid">
+            <div class="feature reveal">
+              <h3>Frais réduits</h3>
+              <p>25 % de frais de service au lieu de 33 %.</p>
             </div>
-            <p class="platform-note">Application Android</p>
+            <div class="feature reveal">
+              <h3>Un délai de grâce plus long</h3>
+              <p>3 jours sans pénalité au lieu d'un jour.</p>
+            </div>
+            <div class="feature reveal">
+              <h3>Des plafonds plus élevés</h3>
+              <p>
+                Accès aux paliers de plafond supérieurs grâce à vos points de
+                confiance.
+              </p>
+            </div>
+            <div class="feature reveal">
+              <h3>Un abonnement de 90 jours</h3>
+              <p>
+                5 000 FCFA pour 3 mois. Vous êtes prévenu avant la fin, un mois
+                puis une semaine avant l'échéance, pour renouveler sans
+                interruption.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- FAQ -->
-      <section id="faq">
+      <section id="faq" class="section-alt">
         <div class="wrap">
           <div
             class="section-head reveal"
@@ -1394,11 +1589,19 @@
           </div>
           <div class="faq reveal">
             <details class="faq-item">
-              <summary>Qu'est-ce que AIFI ?<span class="plus"></span></summary>
+              <summary>Qu'est-ce qu'AIFI ?<span class="plus"></span></summary>
               <p>
-                AIFI est une application mobile permettant aux utilisateurs de
-                consulter et d'effectuer des demandes d'aide selon les
-                conditions disponibles dans l'application.
+                AIFI est une application Android qui vous permet de demander une
+                petite aide financière, de suivre votre demande et de la
+                rembourser, directement depuis votre téléphone.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>Pour quels besoins ?<span class="plus"></span></summary>
+              <p>
+                Pour les petits besoins du quotidien et les imprévus. Le montant
+                et la durée dépendent de votre niveau de confiance et des
+                conditions affichées dans l'application.
               </p>
             </details>
             <details class="faq-item">
@@ -1406,9 +1609,9 @@
                 Comment demander une aide ?<span class="plus"></span>
               </summary>
               <p>
-                Choisissez votre montant, consultez les conditions, sélectionnez
-                votre opérateur, renseignez vos informations puis confirmez
-                votre demande.
+                Choisissez votre montant, lisez les conditions, sélectionnez
+                votre opérateur Mobile Money, renseignez le compte qui recevra
+                l'argent, puis confirmez.
               </p>
             </details>
             <details class="faq-item">
@@ -1416,8 +1619,8 @@
                 Qui choisit l'opérateur ?<span class="plus"></span>
               </summary>
               <p>
-                C'est l'utilisateur qui choisit son opérateur au moment de sa
-                demande.
+                C'est vous. L'administration ne choisit jamais un opérateur à
+                votre place.
               </p>
             </details>
             <details class="faq-item">
@@ -1425,11 +1628,81 @@
                 Comment vais-je recevoir l'argent ?<span class="plus"></span>
               </summary>
               <p>
-                Le transfert est effectué vers les informations de compte Mobile
-                Money renseignées lors de la demande, après traitement et
-                validation.
+                Après traitement et validation de votre demande par l'équipe
+                AIFI, le transfert est effectué vers le compte Mobile Money que
+                vous avez renseigné.
               </p>
             </details>
+            <details class="faq-item">
+              <summary>Comment rembourser ?<span class="plus"></span></summary>
+              <p>
+                Depuis l'application, par Mobile Money (Airtel Money ou Moov
+                Money), avant la date limite affichée dans votre demande.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>
+                Que se passe-t-il si je suis en retard ?<span
+                  class="plus"
+                ></span>
+              </summary>
+              <p>
+                Vous disposez d'un délai de grâce : 1 jour, ou 3 jours avec
+                AIFI+. Au-delà, le montant dû augmente chaque jour de retard et
+                vos points de confiance diminuent. Vous êtes prévenu à chaque
+                étape.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>
+                Pourquoi faut-il faire valider mon compte ?<span
+                  class="plus"
+                ></span>
+              </summary>
+              <p>
+                Pour sécuriser les demandes, l'équipe AIFI vérifie votre
+                identité à partir des documents que vous envoyez depuis
+                l'application.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>Qu'est-ce qu'AIFI+ ?<span class="plus"></span></summary>
+              <p>
+                Un abonnement de 90 jours qui réduit les frais, allonge le délai
+                de grâce et donne accès aux paliers de plafond supérieurs.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- TELECHARGER -->
+      <section id="telecharger">
+        <div class="wrap">
+          <div class="download-cta reveal">
+            <h2>Prêt à utiliser AIFI ?</h2>
+            <p>
+              Téléchargez l'application et faites votre première demande depuis
+              votre téléphone.
+            </p>
+            <div class="hero-actions">
+              <a href="#" class="btn btn-primary js-download"
+                >Télécharger l'application</a
+              >
+            </div>
+            <p class="platform-note">Application Android</p>
+            <ol class="install">
+              <li>Ouvrez le fichier téléchargé, qui s'appelle AIFI.apk.</li>
+              <li>
+                Si Android vous le demande, autorisez l'installation depuis
+                cette source (Paramètres, puis Sécurité ou Installer des
+                applications).
+              </li>
+              <li>
+                Ouvrez AIFI, créez votre compte avec votre numéro, puis envoyez
+                vos documents.
+              </li>
+            </ol>
           </div>
         </div>
       </section>
@@ -1443,7 +1716,7 @@
               ><img src="logo.png" alt="Logo AIFI" class="brand-mark" />AIFI</a
             >
             <p class="footer-tagline">
-              Une solution simple depuis votre téléphone.
+              Un coup de main, depuis votre téléphone.
             </p>
           </div>
           <ul class="footer-links">
